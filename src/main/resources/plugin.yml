@@ -1,0 +1,26 @@
+name: Teleport
+version: '${project.version}'
+main: com.github.witchard.minecraft_teleport.Teleport
+api-version: 1.19
+prefix: teleport
+authors: [ witchard ]
+description: Save and use teleport locations
+website: https://github.com/
+commands:
+  tps:
+    description: Save players current location with friendly name
+    usage: /<command> location_name
+  tpl:
+    description: List all saved teleport locations
+    usage: /<command>
+  tpd:
+    description: Delete a saved location
+    usage: /<command> location_name
+  tpg:
+    description: Send player to a saved location
+    usage: /<command> location_name
+    aliases:
+      - tpp
+  tpa:
+    description: Send all players to a saved location
+    usage: /<command> location_name
