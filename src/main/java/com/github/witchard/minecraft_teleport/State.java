@@ -7,31 +7,26 @@ import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.UUID;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.util.io.BukkitObjectInputStream;
 import org.bukkit.util.io.BukkitObjectOutputStream;
 
-
 public class State implements Serializable {
 
     public HashMap<String, Location> teleports;
-    private String path;
+    transient private String path;
 
     public State(String filePath) {
         teleports = new HashMap<>();
         path = filePath;
-        saveData();
+        save();
     }
 
-    public boolean saveData() {
+    public boolean save() {
         try {
             var parent = Paths.get(path).getParent();
             if (!Files.exists(parent) && !Files.isDirectory(parent)) {
@@ -42,12 +37,11 @@ public class State implements Serializable {
             out.close();
             return true;
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             return false;
         }
     }
-    public static State loadState(String filePath, Logger log) {
+    public static State load(String filePath, Logger log) {
         try {
             BukkitObjectInputStream in = new BukkitObjectInputStream(new GZIPInputStream(new FileInputStream(filePath)));
             State state = (State)in.readObject();

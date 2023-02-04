@@ -1,6 +1,5 @@
 package com.github.witchard.minecraft_teleport;
 
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
@@ -13,15 +12,15 @@ import java.util.logging.Logger;
 public final class Teleport extends JavaPlugin {
     private Logger log;
     private State state;
-
     private final String STATE_FILE = "teleport.state";
+
     @Override
     public void onEnable() {
         // Plugin startup logic
         log = getLogger();
         var path = Paths.get(getDataFolder().getAbsolutePath(), STATE_FILE).toString();
         log.info("loading state from " + path);
-        state = State.loadState(path, log);
+        state = State.load(path, log);
     }
 
     @Override
@@ -34,7 +33,7 @@ public final class Teleport extends JavaPlugin {
             if (command.getName().equalsIgnoreCase("tps") && args.length == 1) {
                 log.info("Saving " + p.getLocation().toString() + " as " + args[0]);
                 state.teleports.put(args[0], p.getLocation());
-                state.saveData();
+                state.save();
                 return true;
             }
             if (command.getName().equalsIgnoreCase("tpl") && args.length == 0) {
@@ -44,7 +43,7 @@ public final class Teleport extends JavaPlugin {
             if (command.getName().equalsIgnoreCase("tpd") && args.length == 1) {
                 if (state.teleports.containsKey(args[0])) {
                     state.teleports.remove(args[0]);
-                    state.saveData();
+                    state.save();
                     return true;
                 }
             }
@@ -71,7 +70,7 @@ public final class Teleport extends JavaPlugin {
             if (command.getName().equalsIgnoreCase("tpd") && args.length == 1) {
                 if (state.teleports.containsKey(args[0])) {
                     state.teleports.remove(args[0]);
-                    state.saveData();
+                    state.save();
                     return true;
                 }
             }
