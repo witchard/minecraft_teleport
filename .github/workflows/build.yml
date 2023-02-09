@@ -19,5 +19,5 @@ jobs:
       - run: mkdir upload && cp target/minecraft_teleport*.jar upload
       - uses: actions/upload-artifact@v3
         with:
-          name: Jar
+          name: minecraft_teleport
           path: upload
