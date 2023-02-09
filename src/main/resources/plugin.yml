@@ -7,8 +7,8 @@ authors: [ witchard ]
 description: Save and use teleport locations
 website: https://github.com/
 commands:
-  tps:
-    description: Save players current location with friendly name
+  tpw:
+    description: Write players current location
     usage: /<command> location_name
   tpl:
     description: List all saved teleport locations
